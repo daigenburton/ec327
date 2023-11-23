@@ -1,0 +1,10 @@
+<resources>
+
+    <string name="app_name" > Scream Block</string>
+
+    <string name="play_button" > Play</string>
+
+    <string name="settings_button" > Settings</string>
+
+    <string name="skins_button" > Skins</string>
+</resources>
