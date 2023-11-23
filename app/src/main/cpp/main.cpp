@@ -57,7 +57,7 @@ bool motion_event_filter_func(const GameActivityMotionEvent *motionEvent) {
 }
 
 /*!
- * This the mainmenu.xml entry point for a native activity
+ * This the main entry point for a native activity
  */
 void android_main(struct android_app *pApp) {
     // Can be removed, useful to ensure your code is running
