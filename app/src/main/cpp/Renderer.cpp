@@ -45,7 +45,7 @@ out vec2 fragUV;
 
 uniform mat4 uProjection;
 
-void main() {
+void mainmenu.xml() {
     fragUV = inUV;
     gl_Position = uProjection * vec4(inPosition, 1.0);
 }
@@ -61,7 +61,7 @@ uniform sampler2D uTexture;
 
 out vec4 outColor;
 
-void main() {
+void mainmenu.xml() {
     outColor = texture(uTexture, fragUV);
 }
 )fragment";
@@ -350,7 +350,7 @@ void Renderer::handleInput() {
         }
         aout << std::endl;
     }
-    // clear the motion input count in this buffer for main thread to re-use.
+    // clear the motion input count in this buffer for mainmenu.xml thread to re-use.
     android_app_clear_motion_events(inputBuffer);
 
     // handle input key events.
