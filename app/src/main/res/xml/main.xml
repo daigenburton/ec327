@@ -44,4 +44,14 @@
         android:layout_above="@+id/skin"
         android:onClick="goToVoiceActivity"/>
 
+<!-- The FloatingActionButton to adjust the threshold of the voice -->
+<com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_volume_24dp"
+        android:onClick="adjustVolumeThreshold" />
+
 </RelativeLayout>
