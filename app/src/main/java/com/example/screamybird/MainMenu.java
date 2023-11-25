@@ -61,7 +61,6 @@ public class MainMenu extends AppCompatActivity {
                     startActivity(intent);
                 } else {
                     // Permission denied
-                    //alert dialog xlm file
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
                     alertDialog.setTitle("Permission Denied...");
                     alertDialog.setMessage("Without record audio permission granted, " +
@@ -83,7 +82,7 @@ public class MainMenu extends AppCompatActivity {
         alertDialog.setTitle("Scroll to adjust the threshold of you voice.");
         alertDialog.setIcon(R.drawable.ic_bird);
         View alertDialogView = LayoutInflater.from(this)
-                .inflate(R.layout.alert_dialog_adjust_volume_threshold, null);
+                .inflate(R.xml.adjust_volume, null);
         NumberPicker numberPicker = (NumberPicker) alertDialogView.findViewById(R.id.number_picker);
         numberPicker.setMaxValue(300);
         numberPicker.setMinValue(0);
