@@ -1,3 +1,5 @@
+package com.example.screamybird;
+
 import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,6 +15,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.NumberPicker;
 
+
 public class MainMenu extends AppCompatActivity {
 
     private static final int RECORD_AUDIO_PERMISSION_REQUEST_CODE = 0x00;
@@ -22,7 +25,7 @@ public class MainMenu extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.xml.main);
+        setContentView(R.layout.main);
 
         // Hide the status bar
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -82,7 +85,7 @@ public class MainMenu extends AppCompatActivity {
         alertDialog.setTitle("Scroll to adjust the threshold of you voice.");
         alertDialog.setIcon(R.drawable.ic_bird);
         View alertDialogView = LayoutInflater.from(this)
-                .inflate(R.xml.adjust_volume, null);
+                .inflate(R.layout.adjust_volume, null);
         NumberPicker numberPicker = (NumberPicker) alertDialogView.findViewById(R.id.number_picker);
         numberPicker.setMaxValue(300);
         numberPicker.setMinValue(0);
