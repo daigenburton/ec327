@@ -15,6 +15,8 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.NumberPicker;
 
+import com.google.androidgamesdk.GameActivity;
+
 
 public class MainMenu extends AppCompatActivity {
 
@@ -83,7 +85,7 @@ public class MainMenu extends AppCompatActivity {
     public void adjustVolumeThreshold(View view) { 
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this); // change to xml
         alertDialog.setTitle("Scroll to adjust the threshold of you voice.");
-        alertDialog.setIcon(R.drawable.ic_bird);
+        //FIX PICTURE alertDialog.setIcon(R.drawable.ic_bird);
         View alertDialogView = LayoutInflater.from(this)
                 .inflate(R.layout.adjust_volume, null);
         NumberPicker numberPicker = (NumberPicker) alertDialogView.findViewById(R.id.number_picker);
