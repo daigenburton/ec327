@@ -42,7 +42,7 @@ public class MainMenu extends AppCompatActivity {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO)
                 != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,
-                    new String[] { Manifest.permission.RECORD_AUDIO },
+                    new String[]{Manifest.permission.RECORD_AUDIO},
                     RECORD_AUDIO_PERMISSION_REQUEST_CODE);
         } else {
             Intent intent = new Intent(this, GameActivity.class); //back-end file for game play
@@ -54,6 +54,7 @@ public class MainMenu extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
             case RECORD_AUDIO_PERMISSION_REQUEST_CODE: {
                 // If request is cancelled, the result arrays are empty.
@@ -82,7 +83,7 @@ public class MainMenu extends AppCompatActivity {
         }
     }
 
-    public void adjustVolumeThreshold(View view) { 
+    public void adjustVolumeThreshold(View view) {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this); // change to xml
         alertDialog.setTitle("Scroll to adjust the threshold of you voice.");
         //FIX PICTURE alertDialog.setIcon(R.drawable.ic_bird);
@@ -112,3 +113,4 @@ public class MainMenu extends AppCompatActivity {
         alertDialog.setCancelable(false);
         alertDialog.show();
     }
+}
