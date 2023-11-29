@@ -1,56 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="10dp">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:padding="80dp">
 
 
-<!-- Displays App Name -->
-        <TextView
-                android:id="@+id/app_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:text="@string/app_name"
-                android:textSize="20sp" />
+    <!-- Displays App Name -->
+    <TextView
+        android:id="@+id/app_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="@string/app_name"
+        android:textSize="35dp"
+        android:textColor="@color/black"/>
 
 
-<requestFocus/>
+    <requestFocus />
 
 
-<!-- Button for settings menu -->
-<Button
-  		android:id="@+id/settings"
-        android:text="@string/settings_button"
+    <!-- Button for settings menu -->
+    <Button
+        android:id="@+id/settings"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true"
+        android:text="@string/settings_button" />
 
-<!-- Button for menu to select sprite skin -->
-<Button
+    <!-- Button for menu to select sprite skin -->
+    <Button
         android:id="@+id/skin"
-        android:text="@string/skins_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/settings"/>
+        android:layout_above="@+id/settings"
+        android:text="@string/skins_button" />
 
-<!-- Button to play game -->
-<Button
+    <!-- Button to play game -->
+    <Button
         android:id="@+id/play"
-        android:text="@string/play_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/skin"
-        android:onClick="goToVoiceActivity"/>
+        android:onClick="goToVoiceActivity"
+        android:text="@string/play_button" />
 
-<!-- The FloatingActionButton to adjust the threshold of the voice -->
-<com.google.android.material.floatingactionbutton.FloatingActionButton
+    <!-- The FloatingActionButton to adjust the threshold of the voice -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_margin="16dp"
+        android:layout_alignParentTop="false"
+        android:layout_alignParentRight="false"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="280dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="46dp"
+        android:layout_marginBottom="16dp"
         android:onClick="adjustVolumeThreshold" />
 
 </RelativeLayout>
