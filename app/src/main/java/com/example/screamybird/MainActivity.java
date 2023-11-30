@@ -8,15 +8,17 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowInsetsController;
 import android.view.WindowManager;
 import android.widget.NumberPicker;
-
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
 import com.google.androidgamesdk.GameActivity;
+import android.os.Build;
+import android.view.WindowInsets;
+
 
 public class MainActivity extends GameActivity {
 
@@ -30,16 +32,31 @@ public class MainActivity extends GameActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        // Hide the status bar
-        getWindow().setFlags(
-                WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN
-        );
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            // For API level 30 and above
+            View decorView = getWindow().getDecorView();
+            decorView.setOnApplyWindowInsetsListener((v, insets) -> {
+                WindowInsetsController insetsController = v.getWindowInsetsController();
+                if (insetsController != null) {
+                    insetsController.hide(WindowInsets.Type.statusBars());
+                    insetsController.setSystemBarsBehavior(WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
+                }
+                return insets.consumeSystemWindowInsets();
+            });
+        } else {
+            // For API level 29 and below
+            getWindow().setFlags(
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN
+            );
+        }
 
         // Get the volume threshold
         SharedPreferences settings = getPreferences(0);
         volumeThreshold = settings.getInt("VolumeThreshold", 50);
     }
+
+
 
     public void goToVoiceActivity(View view) {
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.RECORD_AUDIO)
