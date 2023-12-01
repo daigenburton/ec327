@@ -4,6 +4,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    android:padding="10dp">
+    android:padding="100dp">
+
+    <TextView
+        android:id="@+id/voltext"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:text="@string/mastervolume"/>
+
+    <com.google.android.material.slider.Slider
+        android:id="@+id/volslider"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/voltext" />
+
+    <TextView
+        android:id="@+id/musictext"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/volslider"
+        android:text="@string/music" />
+
+    <com.google.android.material.slider.Slider
+        android:id="@+id/musicslider"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/musictext" />
 
 </RelativeLayout>

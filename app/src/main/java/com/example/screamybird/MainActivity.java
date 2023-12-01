@@ -1,15 +1,19 @@
 package com.example.screamybird;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowInsetsController;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.NumberPicker;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -31,6 +35,7 @@ public class MainActivity extends GameActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+        this.setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             // For API level 30 and above
@@ -54,6 +59,23 @@ public class MainActivity extends GameActivity {
         // Get the volume threshold
         SharedPreferences settings = getPreferences(0);
         volumeThreshold = settings.getInt("VolumeThreshold", 50);
+
+        //settings menu and implementation
+        Button settingsbutton = (Button) findViewById(R.id.settings);
+        settingsbutton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Switch Activities on click
+                Intent settingsintent = new Intent(MainActivity.this,
+                        SettingsActivity.class);
+                startActivity(settingsintent);
+            }
+        });
+
+        //game music implementation
+        AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+        int maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_SYSTEM);
+
+        MediaPlayer mediaPlayer = MediaPlayer.create(this, R.drawable.music);
     }
 
 
