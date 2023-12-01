@@ -75,7 +75,9 @@ public class MainActivity extends GameActivity {
         AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         int maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_SYSTEM);
 
-        MediaPlayer mediaPlayer = MediaPlayer.create(this, R.drawable.music);
+        MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.music);
+        mediaPlayer.setVolume(maxVolume, maxVolume);
+        mediaPlayer.setLooping(true);
     }
 
 
