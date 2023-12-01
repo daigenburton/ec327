@@ -4,14 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    android:padding="100dp">
+    android:padding="10dp">
 
     <TextView
         android:id="@+id/voltext"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:text="@string/mastervolume"/>
+        android:layout_width="400dp"
+        android:layout_height="20dp"
+        android:layout_centerHorizontal="true"
+        android:text="@string/mastervolume"
+        android:fontFamily="More Fonts..."
+        android:font="@font/denk_one" />
 
     <com.google.android.material.slider.Slider
         android:id="@+id/volslider"
@@ -33,3 +35,4 @@
         android:layout_below="@+id/musictext" />
 
 </RelativeLayout>
+

@@ -53,7 +53,7 @@
         android:layout_alignParentTop="true"
         app:srcCompat="@drawable/sound"
         tools:ignore="ContentDescription"
-        android:background="null" />
+        android:background="@null" />
 
     <ImageButton
         android:id="@+id/unmutebutton"
@@ -64,6 +64,6 @@
         android:visibility="invisible"
         app:srcCompat="@drawable/nosound"
         tools:ignore="ContentDescription"
-        android:background="null" />
+        android:background="@null" />
 
 </RelativeLayout>

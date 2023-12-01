@@ -7,16 +7,17 @@ import android.media.AudioManager;
 import android.os.Bundle;
 import android.widget.SeekBar;
 
-public class SettingsActivity extends AppCompatActivity {
+import com.google.androidgamesdk.GameActivity;
+
+public class SettingsActivity2 extends AppCompatActivity {
 
     SeekBar seekBar, seekBarVolume, seekBarMusic;
-
     AudioManager audioManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.settings);
+        setContentView(R.layout.activity_settings2);
 
         audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         //get max and current volume
@@ -28,6 +29,7 @@ public class SettingsActivity extends AppCompatActivity {
         seekBarVolume.setMax(maxVolume);
         seekBarVolume.setProgress(currentVolume);
         seekBarVolume.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 audioManager.setStreamVolume(AudioManager.STREAM_SYSTEM, progress, 0);
@@ -37,11 +39,6 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {}
         });
-
-
-
         seekBarMusic = findViewById(R.id.musicslider);
-
-
     }
 }

@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.WindowInsetsController;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.NumberPicker;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -36,6 +37,7 @@ public class MainActivity extends GameActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         this.setVolumeControlStream(AudioManager.STREAM_MUSIC);
+
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             // For API level 30 and above
@@ -62,28 +64,46 @@ public class MainActivity extends GameActivity {
 
 
         //settings menu and implementation
-        Button settingsbutton = (Button) findViewById(R.id.settings);
+        Button settingsbutton = findViewById(R.id.settings);
         settingsbutton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View settingsbutton) {
+            @Override
+            public void onClick(View view) {
                 // Switch Activities on click
-                Intent settingsintent = new Intent(MainActivity.this,
-                        SettingsActivity.class);
-                startActivity(settingsintent);
+                Intent intent = new Intent(getApplicationContext(),
+                        SettingsActivity2.class);
+                startActivity(intent);
             }
         });
 
-        Button
+/*
+        ImageButton mutebutton = (ImageButton) findViewById(R.id.mutebutton);
+        ImageButton unmutebutton = (ImageButton) findViewById(R.id.unmutebutton);
 
+        mutebutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent musicIntent = new Intent(MainActivity.this, backgroundmusic.class);
+                stopService(musicIntent);
+            }
+        });
+        unmutebutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent musicIntent = new Intent(MainActivity.this, backgroundmusic.class);
+                startService(musicIntent);
+            }
+        });
+
+ */
     }
 
-
-
+/*
     //start intent and call the background music when view is ready
     public void backgroundmusic() {
             Intent musicIntent = new Intent(MainActivity.this, backgroundmusic.class);
             startService(musicIntent);
     }
-
+*/
 
 
     public void goToVoiceActivity(View view) {
