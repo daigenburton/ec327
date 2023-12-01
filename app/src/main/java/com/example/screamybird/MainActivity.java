@@ -60,10 +60,11 @@ public class MainActivity extends GameActivity {
         SharedPreferences settings = getPreferences(0);
         volumeThreshold = settings.getInt("VolumeThreshold", 50);
 
+
         //settings menu and implementation
         Button settingsbutton = (Button) findViewById(R.id.settings);
         settingsbutton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+            public void onClick(View settingsbutton) {
                 // Switch Activities on click
                 Intent settingsintent = new Intent(MainActivity.this,
                         SettingsActivity.class);
@@ -71,13 +72,16 @@ public class MainActivity extends GameActivity {
             }
         });
 
-        //game music implementation
-        AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-        int maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_SYSTEM);
+        Button
 
-        MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.music);
-        mediaPlayer.setVolume(maxVolume, maxVolume);
-        mediaPlayer.setLooping(true);
+    }
+
+
+
+    //start intent and call the background music when view is ready
+    public void backgroundmusic() {
+            Intent musicIntent = new Intent(MainActivity.this, backgroundmusic.class);
+            startService(musicIntent);
     }
 
 

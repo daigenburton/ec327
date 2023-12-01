@@ -31,6 +31,7 @@
                 android:name="android.app.lib_name"
                 android:value="screamybird" />
         </activity>
+        <service android:name=".backgroundmusic" />
     </application>
 
 </manifest>
