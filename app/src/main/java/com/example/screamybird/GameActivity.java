@@ -54,7 +54,7 @@ import java.util.TimerTask;
 
 public class GameActivity extends AppCompatActivity {
 
-    private GameView gameView;
+    private GameView GameView;
     private TextView textViewScore;
 
     private boolean isGameOver;
@@ -78,14 +78,14 @@ public class GameActivity extends AppCompatActivity {
 
     private Timer timer;
 
-    private static class handler extends Handler {
+    class handler extends Handler {
         @Override
         public void handleMessage(Message message) {
             switch (message.what) {
                 case UPDATE: {
-                    if (gameView.isAlive()) {
+                    if (GameView.isAlive()) {
                         isGameOver = false;
-                        gameView.update();
+                        GameView.update();
                     } else {
                         if (isGameOver) {
                             break;
@@ -105,7 +105,7 @@ public class GameActivity extends AppCompatActivity {
 
                         alertDialog = new AlertDialog.Builder(GameActivity.this);
                         alertDialog.setTitle("GAME OVER");
-                        alertDialog.setMessage("Score: " + String.valueOf(gameView.getScore()) +
+                        alertDialog.setMessage("Score: " + String.valueOf(GameView.getScore()) +
                                 "\n" + "Would you like to RESTART?");
                         alertDialog.setCancelable(false);
                         alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
@@ -780,7 +780,7 @@ private class AudioRecorder extends Context {
 
                         // Jump if the volume is loud enough
                         if (volume > volumeThreshold) {
-                            GameActivity.this.gameView.jump();
+                            GameView.jump();
                             Log.i(TAG, "分贝值: " + volume + "超过了");
                         }
 
@@ -799,12 +799,6 @@ private class AudioRecorder extends Context {
 
             }).start();
         }
-    }
-
-    private void initViews() {
-        gameView = (R.layout.level);
-        textViewScore = findViewById(R.id.text_view_score);
-    }
 
     /**
      * Sets the Timer to update the UI of the GameView.
@@ -820,7 +814,7 @@ private class AudioRecorder extends Context {
             @Override
             public void run() {
                 // Send the message to the handler to update the UI of the GameView
-                GameActivity.this.handler.sendEmptyMessage(UPDATE);
+                GameActivity.handler.sendMessage(UPDATE);
 
                 // For garbage collection
                 System.gc();

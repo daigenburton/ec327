@@ -75,6 +75,17 @@ public class MainActivity extends GameActivity {
             }
         });
 
+        //check if play is clicked and create new intent to start the game activity
+        Button playbutton = findViewById(R.id.play);
+        playbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+                public void onClick(View view) {
+                // Switch Activities on click
+                Intent intent = new Intent(MainActivity.this,
+                        GameActivity.class);
+                startActivity(intent);
+            }
+
 /*
         ImageButton mutebutton = (ImageButton) findViewById(R.id.mutebutton);
         ImageButton unmutebutton = (ImageButton) findViewById(R.id.unmutebutton);
