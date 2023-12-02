@@ -19,17 +19,16 @@ public class SettingsActivity2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings2);
 
-        audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+        final AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         //get max and current volume
-        int maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_SYSTEM);
-        int currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_SYSTEM);
+        int maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+        int currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
 
-//THESE THREE MOTHER FUCKING CUNTS
         seekBarVolume = findViewById(R.id.volslider);
         seekBarVolume.setMax(maxVolume);
         seekBarVolume.setProgress(currentVolume);
-        //seekBarVolume.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-/*
+        seekBarVolume.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 audioManager.setStreamVolume(AudioManager.STREAM_SYSTEM, progress, 0);
@@ -42,6 +41,4 @@ public class SettingsActivity2 extends AppCompatActivity {
         seekBarMusic = findViewById(R.id.musicslider);
 
     }
-
- */
-}}
+}
