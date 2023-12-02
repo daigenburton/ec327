@@ -45,7 +45,7 @@ public class GameActivity extends AppCompatActivity {
 
     private Timer timer;
 
-    private Handler handler = new Handler() {
+    private static class handler extends Handler {
         @Override
         public void handleMessage(Message message) {
             switch (message.what) {
