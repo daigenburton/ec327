@@ -20,17 +20,32 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class GameActivity extends AppCompatActivity {
+
     private GameView gameView;
     private TextView textViewScore;
+
     private boolean isGameOver;
+
     private boolean isSetNewTimerThreadEnabled;
+
     private int volumeThreshold;
+
     private Thread setNewTimerThread;
+
     private AlertDialog.Builder alertDialog;
+
     private MediaPlayer mediaPlayer;
+
+    private int gameMode;
+
     private AudioRecorder audioRecorder;
+
+    private static final int TOUCH_MODE = 0x00;
     private static final int VOICE_MODE = 0x01;
+
     private Timer timer;
+
+    private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message message) {
             switch (message.what) {
@@ -44,9 +59,15 @@ public class GameActivity extends AppCompatActivity {
                         } else {
                             isGameOver = true;
                         }
-                        audioRecorder.isGetVoiceRun = false;
-                        audioRecorder = null;
-                        System.gc();
+
+                        if (gameMode == TOUCH_MODE) {
+                            // Cancel the timer
+                            timer.cancel();
+                            timer.purge();
+                        } else {
+                            audioRecorder.isGetVoiceRun = false;
+                            audioRecorder = null;
+                            System.gc();
                         }
 
                         alertDialog = new AlertDialog.Builder(GameActivity.this);
@@ -67,14 +88,23 @@ public class GameActivity extends AppCompatActivity {
                             }
                         });
                         alertDialog.show();
+                    }
 
                     break;
                 }
+
+                case RESET_SCORE: {
+                    textViewScore.setText("0");
+
+                    break;
+                }
+
                 default: {
                     break;
                 }
-                }
-        };
+            }
+        }
+    };
 
     // The what values of the messages
     private static final int UPDATE = 0x00;
@@ -83,6 +113,11 @@ public class GameActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Hide the status bar
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         setContentView(R.layout.activity_game);
 
         // Initialize the private views
@@ -92,7 +127,13 @@ public class GameActivity extends AppCompatActivity {
         mediaPlayer = MediaPlayer.create(this, R.raw.sound_score);
         mediaPlayer.setLooping(false);
 
-        volumeThreshold = getIntent().getIntExtra("VolumeThreshold", 50);
+        // Get the mode of the game from the StartingActivity
+        if (getIntent().getStringExtra("Mode").equals("Touch")) {
+            gameMode = TOUCH_MODE;
+        } else {
+            gameMode = VOICE_MODE;
+
+            volumeThreshold = getIntent().getIntExtra("VolumeThreshold", 50);
         }
 
         // Set the Timer
@@ -113,10 +154,8 @@ public class GameActivity extends AppCompatActivity {
             }
         });
         setNewTimerThread.start();
-
-
-            audioRecorder = new AudioRecorder();
-            audioRecorder.getNoiseLevel();
+        audioRecorder = new AudioRecorder();
+        audioRecorder.getNoiseLevel();
         }
     }
 
@@ -284,6 +323,28 @@ public class GameActivity extends AppCompatActivity {
             }
 
         }).start();
+
+        if (gameMode == TOUCH_MODE) {
+            isSetNewTimerThreadEnabled = true;
+            setNewTimerThread = new Thread(new Runnable() {
+
+                @Override
+                public void run() {
+                    try {
+                        // Sleep for 3 seconds
+                        Thread.sleep(3000);
+                    } catch (Exception exception) {
+                        exception.printStackTrace();
+                    } finally {
+                        if (isSetNewTimerThreadEnabled) {
+                            setNewTimer();
+                        }
+                    }
+                }
+
+            });
+            setNewTimerThread.start();
+        } else {
             audioRecorder = new AudioRecorder();
             audioRecorder.getNoiseLevel();
         }
