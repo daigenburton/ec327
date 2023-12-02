@@ -85,7 +85,7 @@ public class MainActivity extends GameActivity {
                         GameActivity.class);
                 startActivity(intent);
             }
-
+});
 /*
         ImageButton mutebutton = (ImageButton) findViewById(R.id.mutebutton);
         ImageButton unmutebutton = (ImageButton) findViewById(R.id.unmutebutton);
@@ -106,7 +106,6 @@ public class MainActivity extends GameActivity {
         });
 
  */
-    }
 
 /*
     //start intent and call the background music when view is ready
@@ -115,7 +114,7 @@ public class MainActivity extends GameActivity {
             startService(musicIntent);
     }
 */
-
+    }
 
     public void goToVoiceActivity(View view) {
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.RECORD_AUDIO)
@@ -193,4 +192,5 @@ public class MainActivity extends GameActivity {
         alertDialog.setCancelable(false);
         alertDialog.show();
     }
+
 }
