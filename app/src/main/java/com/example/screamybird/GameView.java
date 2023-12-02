@@ -155,7 +155,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback{
     /*
     * Resets all values, used for restarts
     */
-    public static void reset() {
+    public void reset() {
         //Player values reset to 0
         positionX = 0.0f;
         positionY = 0.0f;
