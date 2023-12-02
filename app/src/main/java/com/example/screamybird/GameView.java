@@ -18,6 +18,8 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.appcompat.widget.AppCompatDrawableManager;
+
+import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -55,6 +57,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback{
     private float terrainWidth = 500.0f;
     private List<Terrain> terrainList;
     private static final float terrainVelocity = 3.0f;
+
+
 
     public GameView (Context context) {
         super (context);
@@ -122,7 +126,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback{
         paint = new Paint();
 
         // For player
-        bitmap = getBitmapFromVectorDrawable(getContext(), R.drawable.Idle);
+        bitmap = getBitmapFromVectorDrawable(getContext(), R.drawable.idle);
         bitmap = Bitmap.createScaledBitmap(bitmap, 100, 100, false);
 
         // Array for terrain generation
@@ -130,6 +134,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback{
 
         setKeepScreenOn(true);
     }
+
 
     /*
     * Creates a bitmap from context

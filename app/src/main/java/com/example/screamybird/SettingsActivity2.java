@@ -11,7 +11,7 @@ import com.google.androidgamesdk.GameActivity;
 
 public class SettingsActivity2 extends AppCompatActivity {
 
-    SeekBar seekBar, seekBarVolume, seekBarMusic;
+    SeekBar seekBarVolume, seekBarMusic;
     AudioManager audioManager;
 
     @Override
@@ -24,12 +24,12 @@ public class SettingsActivity2 extends AppCompatActivity {
         int maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_SYSTEM);
         int currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_SYSTEM);
 
-
+//THESE THREE MOTHER FUCKING CUNTS
         seekBarVolume = findViewById(R.id.volslider);
         seekBarVolume.setMax(maxVolume);
         seekBarVolume.setProgress(currentVolume);
-        seekBarVolume.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-
+        //seekBarVolume.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+/*
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 audioManager.setStreamVolume(AudioManager.STREAM_SYSTEM, progress, 0);
@@ -40,5 +40,8 @@ public class SettingsActivity2 extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {}
         });
         seekBarMusic = findViewById(R.id.musicslider);
+
     }
-}
+
+ */
+}}
