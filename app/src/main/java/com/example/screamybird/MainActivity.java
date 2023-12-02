@@ -1,15 +1,20 @@
 package com.example.screamybird;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowInsetsController;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.NumberPicker;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -31,6 +36,8 @@ public class MainActivity extends GameActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+        this.setVolumeControlStream(AudioManager.STREAM_MUSIC);
+
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             // For API level 30 and above
@@ -54,8 +61,49 @@ public class MainActivity extends GameActivity {
         // Get the volume threshold
         SharedPreferences settings = getPreferences(0);
         volumeThreshold = settings.getInt("VolumeThreshold", 50);
+
+
+        //settings menu and implementation
+        Button settingsbutton = findViewById(R.id.settings);
+        settingsbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Switch Activities on click
+                Intent intent = new Intent(MainActivity.this,
+                        SettingsActivity2.class);
+                startActivity(intent);
+            }
+        });
+
+/*
+        ImageButton mutebutton = (ImageButton) findViewById(R.id.mutebutton);
+        ImageButton unmutebutton = (ImageButton) findViewById(R.id.unmutebutton);
+
+        mutebutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent musicIntent = new Intent(MainActivity.this, backgroundmusic.class);
+                stopService(musicIntent);
+            }
+        });
+        unmutebutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent musicIntent = new Intent(MainActivity.this, backgroundmusic.class);
+                startService(musicIntent);
+            }
+        });
+
+ */
     }
 
+/*
+    //start intent and call the background music when view is ready
+    public void backgroundmusic() {
+            Intent musicIntent = new Intent(MainActivity.this, backgroundmusic.class);
+            startService(musicIntent);
+    }
+*/
 
 
     public void goToVoiceActivity(View view) {
