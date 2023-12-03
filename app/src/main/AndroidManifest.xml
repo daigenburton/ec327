@@ -16,7 +16,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ScreamyBird"
-        tools:targetApi="31">
+        tools:targetApi="31"
+        tools:ignore="ExtraText">
         <activity
             android:name=".NewGameActivity"
             android:exported="false" />
@@ -38,12 +39,8 @@
         <activity
             android:name=".SettingsActivity2"
             android:exported="false"
-<<<<<<< HEAD
             android:label="@string/app_name" />
 
-=======
-            android:label="@string/app_name"></activity>
->>>>>>> 75f33d7b17895666264b1708c73f8c51bdf3a9b1
     </application>
 
 </manifest>
