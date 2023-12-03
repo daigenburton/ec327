@@ -83,8 +83,7 @@ public class MainActivity extends GameActivity {
             @Override
                 public void onClick(View view) {
                 // Switch Activities on click
-                Intent intent = new Intent(MainActivity.this,
-                        GameActivity.class);
+                Intent intent = new Intent(MainActivity.this, GameActivity.class);
                 startActivity(intent);
             }
         });
