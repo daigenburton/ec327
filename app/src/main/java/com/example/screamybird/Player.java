@@ -1,5 +1,5 @@
-package com.example.screamybird;
-
-public class Player {
-
-}
+//package com.example.screamybird;
+//
+//public class Player {
+//
+//}
