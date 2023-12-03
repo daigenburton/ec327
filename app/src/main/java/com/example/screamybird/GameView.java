@@ -1,7 +1,6 @@
 package com.example.screamybird;
 
 import android.content.Context;
-<<<<<<< HEAD
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.view.SurfaceHolder;
@@ -12,18 +11,6 @@ public class GameView extends SurfaceView implements Runnable{
     private boolean isPlaying;
     private int screenX, screenY;
     private float screenRatioX, screenRatioY;
-=======
-import android.util.AttributeSet;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
-
-import androidx.annotation.NonNull;
-
-public class GameView extends SurfaceView implements SurfaceHolder.Callback{
-    SurfaceHolder holder;
-    GameThread thread;
-    Game game;
->>>>>>> 770d3a3d8f47d6112b01c2f7504387a2cf733938
 
     private Paint paint;
     private Background background1, background2;
@@ -98,20 +85,5 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback{
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    @Override
-    public void surfaceCreated(@NonNull SurfaceHolder holder) {
-
-    }
-
-    @Override
-    public void surfaceChanged(@NonNull SurfaceHolder holder, int format, int width, int height) {
-
-    }
-
-    @Override
-    public void surfaceDestroyed(@NonNull SurfaceHolder holder) {
-
     }
 }
