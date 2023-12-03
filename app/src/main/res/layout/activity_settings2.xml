@@ -3,36 +3,55 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
-    android:padding="10dp">
+    android:padding="100dp"
+    android:background="@color/sand">
 
     <TextView
         android:id="@+id/voltext"
         android:layout_width="400dp"
-        android:layout_height="20dp"
+        android:layout_height="40dp"
         android:layout_centerHorizontal="true"
+        android:font="@font/denk_one"
+        android:fontFamily="@font/denk_one"
         android:text="@string/mastervolume"
-        android:fontFamily="More Fonts..."
-        android:font="@font/denk_one" />
+        android:textFontWeight="1000"
+        android:textSize="20dp"
+        android:textAlignment="center" />
 
-    <com.google.android.material.slider.Slider
+    <SeekBar
         android:id="@+id/volslider"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="40dp"
         android:layout_below="@+id/voltext" />
+
+    <Space
+        android:id="@+id/spacer"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/volslider"/>
+
 
     <TextView
         android:id="@+id/musictext"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/volslider"
-        android:text="@string/music" />
+        android:layout_width="400dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/spacer"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/denk_one"
+        android:textFontWeight="1000"
+        android:textSize="20dp"
+        android:text="@string/music"
+        android:textAlignment="center" />
 
-    <com.google.android.material.slider.Slider
+    <SeekBar
         android:id="@+id/musicslider"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="40dp"
         android:layout_below="@+id/musictext" />
+
+    <ImageButton
+         android:layout_height=""
+        android:layout_width="" />
 
 </RelativeLayout>
 
