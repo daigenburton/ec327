@@ -24,6 +24,8 @@ import com.google.androidgamesdk.GameActivity;
 import android.os.Build;
 import android.view.WindowInsets;
 
+import java.io.IOException;
+
 
 public class MainActivity extends GameActivity {
 
@@ -84,36 +86,29 @@ public class MainActivity extends GameActivity {
                 Intent intent = new Intent(MainActivity.this, GameActivity.class);
                 startActivity(intent);
             }
-});
-/*
-        ImageButton mutebutton = (ImageButton) findViewById(R.id.mutebutton);
-        ImageButton unmutebutton = (ImageButton) findViewById(R.id.unmutebutton);
-
-        mutebutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent musicIntent = new Intent(MainActivity.this, backgroundmusic.class);
-                stopService(musicIntent);
-            }
-        });
-        unmutebutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent musicIntent = new Intent(MainActivity.this, backgroundmusic.class);
-                startService(musicIntent);
-            }
         });
 
- */
+        /*start backgound music when game opens
+        MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.music);
+        mediaPlayer.setVolume(100, 100);
+        mediaPlayer.start();
+        mediaPlayer.setLooping(true);*/
+        playBackgroundMusic(this);
+    }
 
-/*
-    //start intent and call the background music when view is ready
-    public void backgroundmusic() {
-            Intent musicIntent = new Intent(MainActivity.this, backgroundmusic.class);
-            startService(musicIntent);
+    public static void playBackgroundMusic(final Context context) {
+        MediaPlayer mediaPlayer = MediaPlayer.create(context, R.raw.music);
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                if (mediaPlayer != null) {
+                    mediaPlayer.release();
+                }
+            }
+        });
+        mediaPlayer.start();
     }
-*/
-    }
+
 
     public void goToVoiceActivity(View view) {
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.RECORD_AUDIO)
