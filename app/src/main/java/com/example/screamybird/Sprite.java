@@ -128,18 +128,7 @@ public class Sprite {
         canvas.drawRect(hitbox, borderPaint);
     }
 
-    //Might not need drawVecs class
-    public void drawVecs (Canvas canvas, int scalar) {
-        Path path = new Path();
-        path.moveTo(this.getHitbox().centerX(),
-                    this.getHitbox().centerY());
-        path.lineTo(this.getHitbox().centerX(),
-                    this.getHitbox().centerY());
-        path.close();
-        canvas.drawPath(path, vectorPaint);
-    }
-
-    public void draw (Canvas canvas, long elevation) {
+    public void draw (Canvas canvas) {
         if(image != null) {
             this.setY(this.getY());
             canvas.drawBitmap(image, null, getHitbox(), null);
