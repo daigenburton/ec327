@@ -99,6 +99,7 @@ public class MainActivity extends GameActivity {
 
     public static void playBackgroundMusic(final Context context) {
         MediaPlayer mediaPlayer = MediaPlayer.create(context, R.raw.music);
+        mediaPlayer.setVolume(100, 100);
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {

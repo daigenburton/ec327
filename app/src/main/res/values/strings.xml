@@ -8,6 +8,7 @@
 
     <string name="skins_button"> Skins</string>
 
-    <string name="mastervolume">Volume</string>
-    <string name="music">Music</string>
+    <string name="mastervolume">Systen Volume</string>
+
+    <string name="brightness">Brightness</string>
 </resources>

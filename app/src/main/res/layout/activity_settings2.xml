@@ -3,14 +3,20 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="100dp"
+    android:padding="10dp"
     android:background="@color/sand">
+    <Space
+        android:id="@+id/spacer3"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_alignParentTop="true"/>
 
     <TextView
         android:id="@+id/voltext"
         android:layout_width="400dp"
         android:layout_height="40dp"
         android:layout_centerHorizontal="true"
+        android:layout_below="@+id/spacer3"
         android:font="@font/denk_one"
         android:fontFamily="@font/denk_one"
         android:text="@string/mastervolume"
@@ -32,7 +38,7 @@
 
 
     <TextView
-        android:id="@+id/musictext"
+        android:id="@+id/brightnesstext"
         android:layout_width="400dp"
         android:layout_height="40dp"
         android:layout_below="@+id/spacer"
@@ -40,18 +46,25 @@
         android:fontFamily="@font/denk_one"
         android:textFontWeight="1000"
         android:textSize="20dp"
-        android:text="@string/music"
+        android:text="@string/brightness"
         android:textAlignment="center" />
 
     <SeekBar
-        android:id="@+id/musicslider"
+        android:id="@+id/brightnessslider"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_below="@+id/musictext" />
+        android:layout_below="@+id/brightnesstext" />
 
     <ImageButton
-         android:layout_height=""
-        android:layout_width="" />
+        android:id="@+id/backbutton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="0dp"
+        android:background="@null"
+        android:src="@drawable/backarrow" />
 
 </RelativeLayout>
 
