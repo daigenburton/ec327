@@ -87,27 +87,6 @@ public class MainActivity extends GameActivity {
                 startActivity(intent);
             }
         });
-
-        /*start backgound music when game opens
-        MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.music);
-        mediaPlayer.setVolume(100, 100);
-        mediaPlayer.start();
-        mediaPlayer.setLooping(true);*/
-        playBackgroundMusic(this);
-    }
-
-    public static void playBackgroundMusic(final Context context) {
-        MediaPlayer mediaPlayer = MediaPlayer.create(context, R.raw.music);
-        mediaPlayer.setVolume(100, 100);
-        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mediaPlayer) {
-                if (mediaPlayer != null) {
-                    mediaPlayer.release();
-                }
-            }
-        });
-        mediaPlayer.start();
     }
 
 
