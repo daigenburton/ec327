@@ -10,29 +10,21 @@
 
     <requestFocus />
 
-
     <!-- Button for settings menu -->
     <Button
         android:id="@+id/settings"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@+id/spacer"
         android:text="@string/settings_button" />
 
-    <!-- Button for menu to select sprite skin -->
-    <Button
-        android:id="@+id/skin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/settings"
-        android:text="@string/skins_button" />
 
     <!-- Button to play game -->
     <Button
         android:id="@+id/play"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/skin"
+        android:layout_above="@+id/spacer2"
         android:onClick="goToVoiceActivity"
         android:text="@string/play_button" />
 
@@ -42,28 +34,19 @@
         android:layout_height="100dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        app:srcCompat="@drawable/placeholder_2"
+        app:srcCompat="@drawable/title"
         tools:ignore="ContentDescription" />
 
-    <ImageButton
-        android:id="@+id/mutebutton"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        app:srcCompat="@drawable/sound"
-        tools:ignore="ContentDescription"
-        android:background="@null" />
+    <Space
+        android:id="@+id/spacer"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true" />
 
-    <ImageButton
-        android:id="@+id/unmutebutton"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:visibility="invisible"
-        app:srcCompat="@drawable/nosound"
-        tools:ignore="ContentDescription"
-        android:background="@null" />
+    <Space
+        android:id="@+id/spacer2"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_above="@+id/settings" />
 
 </RelativeLayout>
