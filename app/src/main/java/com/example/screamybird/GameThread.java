@@ -23,7 +23,7 @@ public class GameThread extends Thread{
 
             if (elapsed < fr) {
                 game.update(elapsed); //need to add update function to game
-                game.draw(); //need to add draw
+                //game.draw(); //need to add draw
             }
             lastTime = now;
         }
