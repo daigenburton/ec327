@@ -97,7 +97,6 @@ public class MainActivity extends NewGameActivity {
                     RECORD_AUDIO_PERMISSION_REQUEST_CODE);
         } else {
             Intent intent = new Intent(this, NewGameActivity.class); //back-end file for game play
-            intent.putExtra("VolumeThreshold", volumeThreshold);
             startActivity(intent);
         }
     }
@@ -132,38 +131,6 @@ public class MainActivity extends NewGameActivity {
                 return;
             }
         }
-    }
-
-    public void adjustVolumeThreshold(View view) {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this); // change to xml
-        alertDialog.setTitle("Scroll to adjust the threshold of you voice.");
-        //FIX PICTURE alertDialog.setIcon(R.drawable.ic_bird);
-        View alertDialogView = LayoutInflater.from(this)
-                .inflate(R.layout.adjust_volume, null);
-        NumberPicker numberPicker = (NumberPicker) alertDialogView.findViewById(R.id.number_picker);
-        numberPicker.setMaxValue(300);
-        numberPicker.setMinValue(0);
-        numberPicker.setValue(volumeThreshold);
-        numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker np, int oldValue, int newValue) {
-                volumeThreshold = np.getValue();
-            }
-        });
-
-        alertDialog.setView(alertDialogView);
-        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int which) {
-                // Save the change in the SharedPreferences
-                SharedPreferences settings = MainActivity.this.getPreferences(0);
-                SharedPreferences.Editor editor = settings.edit();
-                editor.putInt("VolumeThreshold", MainActivity.this.volumeThreshold);
-                editor.apply();
-            }
-        });
-        alertDialog.setCancelable(false);
-        alertDialog.show();
     }
 
 }
