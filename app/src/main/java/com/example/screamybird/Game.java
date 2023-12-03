@@ -19,7 +19,7 @@ public class Game {
     private Resources resources;
     private gameStates state = gameStates.START;
 
-    private Player player;
+    //private Player player;
     private Terrain terrain;
 
     Paint borderPaint = new Paint();
