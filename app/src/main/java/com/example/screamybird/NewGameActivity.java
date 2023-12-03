@@ -2,19 +2,21 @@ package com.example.screamybird;
 
 import android.graphics.Point;
 import android.os.Bundle;
+import android.util.AttributeSet;
+import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.MotionEvent;
+
+import org.xmlpull.v1.XmlPullParser;
 
 public class NewGameActivity extends AppCompatActivity {
     private GameView gameView;
     private Game game;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 
         Point point = new Point();
         getWindowManager().getDefaultDisplay().getSize(point);
