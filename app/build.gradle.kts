@@ -33,6 +33,7 @@ android {
     }
     buildFeatures {
         prefab = true
+        viewBinding = true
     }
     externalNativeBuild {
         cmake {

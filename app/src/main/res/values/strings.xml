@@ -11,4 +11,7 @@
     <string name="mastervolume">Systen Volume</string>
 
     <string name="brightness">Brightness</string>
+    <string name="title_activity_game_activitynew">GameActivitynew</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>

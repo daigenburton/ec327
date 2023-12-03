@@ -20,14 +20,13 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import com.google.androidgamesdk.GameActivity;
 import android.os.Build;
 import android.view.WindowInsets;
 
 import java.io.IOException;
 
 
-public class MainActivity extends GameActivity {
+public class MainActivity extends NewGameActivity {
 
     private static final int RECORD_AUDIO_PERMISSION_REQUEST_CODE = 0x00;
 
@@ -83,7 +82,7 @@ public class MainActivity extends GameActivity {
             @Override
                 public void onClick(View view) {
                 // Switch Activities on click
-                Intent intent = new Intent(MainActivity.this, GameActivity.class);
+                Intent intent = new Intent(MainActivity.this, NewGameActivity.class);
                 startActivity(intent);
             }
         });
@@ -97,7 +96,7 @@ public class MainActivity extends GameActivity {
                     new String[]{Manifest.permission.RECORD_AUDIO},
                     RECORD_AUDIO_PERMISSION_REQUEST_CODE);
         } else {
-            Intent intent = new Intent(this, GameActivity.class); //back-end file for game play
+            Intent intent = new Intent(this, NewGameActivity.class); //back-end file for game play
             intent.putExtra("VolumeThreshold", volumeThreshold);
             startActivity(intent);
         }
@@ -114,7 +113,7 @@ public class MainActivity extends GameActivity {
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
                     // Permission was granted
-                    Intent intent = new Intent(this, GameActivity.class);
+                    Intent intent = new Intent(this, NewGameActivity.class);
                     intent.putExtra("Mode", "Voice");
                     startActivity(intent);
                 } else {

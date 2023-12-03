@@ -1,17 +1,11 @@
 package com.example.screamybird;
 
-import android.app.Activity;
 import android.graphics.Point;
 import android.os.Bundle;
-import android.provider.CalendarContract;
-import android.util.DisplayMetrics;
-import android.view.Display;
-import android.view.Window;
-import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class GameActivity extends AppCompatActivity {
+public class NewGameActivity extends AppCompatActivity {
     private GameView gameView;
 
 
