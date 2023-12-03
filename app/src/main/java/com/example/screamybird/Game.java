@@ -1,6 +1,5 @@
 package com.example.screamybird;
 
-import android.app.GameState;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.BitmapFactory;
@@ -36,11 +35,16 @@ public class Game {
         reset();
     }
 
-    private void reset () {
+    public void reset() {
 
     }
 
+    public void update(long elapsed) {
 
+    }
 
+    public void draw() {
+
+    }
 }
 

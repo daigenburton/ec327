@@ -4,7 +4,8 @@
     package="com.example.screamybird">
 
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"
+        tools:ignore="ProtectedPermissions" />
 
     <application
         android:allowBackup="true"
@@ -37,8 +38,6 @@
             android:name=".SettingsActivity2"
             android:exported="false"
             android:label="@string/app_name"></activity>
-
-        <service android:name=".backgroundmusic" />
     </application>
 
 </manifest>

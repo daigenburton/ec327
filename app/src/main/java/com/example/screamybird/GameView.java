@@ -65,7 +65,7 @@ public class GameView extends SurfaceView implements Runnable{
         }
     }
 
-    private void sleep () {
+    private void sleep() {
         try {
             Thread.sleep(17);
         } catch (InterruptedException e) {
@@ -78,7 +78,7 @@ public class GameView extends SurfaceView implements Runnable{
         thread.start();
     }
 
-    public void pause () {
+    public void pause() {
         try {
             isPlaying = false;
             thread.join();
