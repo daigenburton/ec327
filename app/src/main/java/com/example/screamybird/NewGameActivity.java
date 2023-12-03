@@ -4,9 +4,11 @@ import android.graphics.Point;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import android.view.MotionEvent;
 
 public class NewGameActivity extends AppCompatActivity {
     private GameView gameView;
+    private Game game;
 
 
     @Override
@@ -33,5 +35,10 @@ public class NewGameActivity extends AppCompatActivity {
         gameView.resume();
     }
 
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        game.onTouchEvent(event);
+        return true;
+    }
 }
 
