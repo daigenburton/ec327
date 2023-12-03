@@ -4,6 +4,7 @@ public class Terrain {
     private float x;
     private float y;
     private float height;
+    private float width;
 
     public Terrain (float xPos, float yPos, float height) {
         this.x = xPos;
@@ -20,6 +21,8 @@ public class Terrain {
     }
 
     public float getHeight () { return height; }
+
+    public float getWidth () { return width; }
 
     public void setX (float newX) {
         this.x = newX;

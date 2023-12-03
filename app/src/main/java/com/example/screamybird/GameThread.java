@@ -1,6 +1,6 @@
 package com.example.screamybird;
 
-public class GameThread {
+public class GameThread extends Thread{
     private Game game;
     private boolean running;
     private int fr; //frame rate

@@ -20,6 +20,7 @@ import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
@@ -590,6 +591,9 @@ public class Game extends Context {
     private static int RECORDER_CHANNELS = AudioFormat.CHANNEL_IN_MONO;
     private static int RECORDER_AUDIO_ENCODING = AudioFormat.ENCODING_PCM_16BIT;
 
+    private Background background1, background2;
+    private Paint paint = new Paint();
+
     Paint borderPaint = new Paint();
     BitmapFactory.Options options;
 
@@ -693,6 +697,18 @@ public class Game extends Context {
 
     }
 
+    public void draw() {
+        if (holder.getSurface().isValid()) {
+            Canvas canvas = holder.lockCanvas();
+
+            canvas.drawBitmap(background1.background, background1.x, background1.y, paint);
+            canvas.drawBitmap(background2.background, background2.x, background2.y, paint );
+
+            canvas.drawBitmap(player.image, (float) player.getX(), (float) player.getY(), null);
+
+            holder.unlockCanvasAndPost(canvas);
+        }
+    }
 
 
 }
