@@ -38,8 +38,7 @@
 
         <activity
             android:name=".SettingsActivity2"
-            android:exported="false"
-            android:label="@string/app_name" />
+            android:exported="false"/>
 
     </application>
 
