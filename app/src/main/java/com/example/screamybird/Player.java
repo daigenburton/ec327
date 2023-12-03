@@ -33,4 +33,3 @@ public class Player extends Sprite {
         this.ay = fay;
     }
 }
-
