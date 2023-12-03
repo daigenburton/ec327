@@ -37,6 +37,8 @@ public class Game {
 
     public void reset() {
 
+
+
     }
 
     public void update(long elapsed) {
