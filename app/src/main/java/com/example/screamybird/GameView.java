@@ -161,9 +161,6 @@ public class GameView extends SurfaceView implements Runnable {
     }
 
     private void update() {
-        if (!preferences.getBoolean("isMute", false)) {
-            soundPool.play(sound, 1, 1, 0, -1, 1);
-        }
 
         background1.x -= 10 * screenRatioX;
         background2.x -= 10 * screenRatioX;
@@ -186,6 +183,11 @@ public class GameView extends SurfaceView implements Runnable {
             slime.y = screenY - (slime.height + 300);
         }
 
+        if (!preferences.getBoolean("isMute", false)) {
+            soundPool.play(sound, 1, 1, 0, -1, 1);
+        }
+
+
         for (Snake snake : snakes) {
 
             snake.x -= snake.speed;
@@ -200,8 +202,8 @@ public class GameView extends SurfaceView implements Runnable {
                     snake.x = screenX;
                     snake.y = random.nextInt(screenY - snake.height + 300);
                 }
-
             }
+
 
             if (Rect.intersects(snake.GetCollisionShape(), slime.GetCollisionShape())) {
                 //GAME OVER
