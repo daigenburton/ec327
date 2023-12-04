@@ -18,7 +18,10 @@ import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 
-
+/*
+This is the settings activity that allows the user to change the volume and brightness of the game
+and allows the user to go back to the main menu from the settings page by clicking the back button
+ */
 public class SettingsActivity2 extends AppCompatActivity {
     private int currentBrightness = 0;
     private Window window;
