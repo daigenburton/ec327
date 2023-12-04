@@ -60,6 +60,17 @@ public class GameView extends SurfaceView implements Runnable{
         if (background2.x + background2.background.getWidth() < 0) {
             background2.x = screenX;
         }
+        if (slime.isGoingUp) {
+            slime.y -= 30 * screenRatioY;
+        } else {
+            slime.y += 30 * screenRatioY;
+        }
+        if (slime.y < 0) {
+            slime.y = 0;
+        }
+        if (slime.y > screenY - (slime.height+300)) {
+            slime.y = screenY - (slime.height+300);
+        }
     }
     private void draw () {
 
@@ -102,10 +113,11 @@ public class GameView extends SurfaceView implements Runnable{
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 if (event.getX() < screenX / 2) {
-                    player.isGoingUp = true;
+                    slime.isGoingUp = true;
                 }
                 break;
                 case MotionEvent.ACTION_UP:
+                    slime.isGoingUp = false;
                     break;
         }
         return true;

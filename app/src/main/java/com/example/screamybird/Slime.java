@@ -8,6 +8,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 public class Slime {
+
     boolean isGoingUp = false;
     int x, y, width, height, slimeCounter=2;
     Bitmap slime1, slime2;
