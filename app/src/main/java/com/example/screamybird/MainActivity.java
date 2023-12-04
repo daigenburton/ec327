@@ -22,9 +22,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import android.os.Build;
 import android.view.WindowInsets;
-import android.widget.TextView;
 
-import java.io.IOException;
 
 
 public class MainActivity extends NewGameActivity {
