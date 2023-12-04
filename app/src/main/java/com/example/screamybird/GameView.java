@@ -19,7 +19,7 @@ import androidx.constraintlayout.widget.ConstraintSet;
 
 import java.util.Random;
 
-
+//this class is the game view and it is where the game is drawn and updated
 public class GameView extends SurfaceView implements Runnable{
     private Thread thread;
     private boolean isPlaying, isGameOver = false;
@@ -92,6 +92,9 @@ public class GameView extends SurfaceView implements Runnable{
     }
 
     private void update () {
+        if (!preferences.getBoolean("isMute", false)) {
+            soundPool.play(sound, 1, 1, 0, -1, 1);
+        }
 
         background1.x -= 10 * screenRatioX;
         background2.x -= 10 *screenRatioX;
@@ -113,9 +116,7 @@ public class GameView extends SurfaceView implements Runnable{
         if (slime.y > screenY - (slime.height+300)) {
             slime.y = screenY - (slime.height+300);
         }
-        if (!preferences.getBoolean("isMute", false)) {
-            soundPool.play(sound, 1, 1, 0, 0, 1);
-        }
+
         for (Snake snake : snakes) {
 
             snake.x -= snake.speed;
@@ -173,7 +174,7 @@ public class GameView extends SurfaceView implements Runnable{
 
     private void waitBeforeExiting() {
         try {
-            Thread.sleep(3000);
+            Thread.sleep(2000);
             activity.startActivity(new Intent(activity, MainActivity.class));
             activity.finish();
         } catch (InterruptedException e) {

@@ -1,5 +1,5 @@
 package com.example.screamybird;
-
+//this is the snake class that creates the snake and animates it
 import static com.example.screamybird.GameView.screenRatioX;
 import static com.example.screamybird.GameView.screenRatioY;
 
@@ -11,13 +11,12 @@ import android.graphics.Rect;
 public class Snake {
     public int speed = 20;
     int x,y, width, height, snakeCounter=1;
-    Bitmap snake1, snake2, snake3, snake4;
+    Bitmap snake1, snake2, snake3;
 
     Snake(Resources res){
         snake1 = BitmapFactory.decodeResource(res, R.drawable.snake1);
         snake2 = BitmapFactory.decodeResource(res, R.drawable.snake2);
         snake3 = BitmapFactory.decodeResource(res, R.drawable.snake3);
-        snake4 = BitmapFactory.decodeResource(res, R.drawable.snake4);
 
         width = snake1.getWidth();
         height = snake1.getHeight();
@@ -31,7 +30,6 @@ public class Snake {
         snake1 = Bitmap.createScaledBitmap(snake1, width, height, false);
         snake2 = Bitmap.createScaledBitmap(snake2, width, height, false);
         snake3 = Bitmap.createScaledBitmap(snake3, width, height, false);
-        snake4 = Bitmap.createScaledBitmap(snake4, width, height, false);
 
         y =  -height;
     }
@@ -50,7 +48,7 @@ public class Snake {
             return snake3;
         }
         snakeCounter = 1;
-        return snake4;
+        return snake1;
     }
 
     Rect GetCollisionShape () {

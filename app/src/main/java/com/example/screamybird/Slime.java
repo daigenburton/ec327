@@ -8,7 +8,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Rect;
-
+//this is the slime class that creates the slime and animates it
 public class Slime {
 
     boolean isGoingUp = false;
