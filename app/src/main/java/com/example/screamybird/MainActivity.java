@@ -25,7 +25,8 @@ import android.os.Build;
 import android.view.WindowInsets;
 
 
-
+//the MainActivity class is used to implement a play and setting buttons
+//this class also asks the user for permission to access the microphone
 public class MainActivity extends AppCompatActivity {
 
     private static final int RECORD_AUDIO_PERMISSION_REQUEST_CODE = 0x00;
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     @SuppressWarnings("DEPRECATION")
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) { //this function implements the main.xml and checks for API level
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         this.setVolumeControlStream(AudioManager.STREAM_MUSIC);
@@ -89,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void goToVoiceActivity() {
+    public void goToVoiceActivity() { //check permission for microphone access
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.RECORD_AUDIO)
                 != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,
@@ -102,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) { //request permission
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
             case RECORD_AUDIO_PERMISSION_REQUEST_CODE: {
@@ -124,5 +125,4 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
 }

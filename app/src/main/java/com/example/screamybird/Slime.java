@@ -15,7 +15,7 @@ public class Slime {
     int x, y, width, height, slimeCounter=0;
     Bitmap slime1, slime2, slime3, slime4, dead;
 
-    Slime (int screenY, Resources res) {
+    Slime (int screenY, Resources res) {    //creates the slime
         slime1 = BitmapFactory.decodeResource(res, R.drawable.slime1);
         slime2 = BitmapFactory.decodeResource(res, R.drawable.slime2);
         slime3 = BitmapFactory.decodeResource(res, R.drawable.slime3);
@@ -43,7 +43,7 @@ public class Slime {
         x = (int) (64 * screenRatioX);
     }
 
-    Bitmap getSlime () {
+    Bitmap getSlime () {    //this animates the slime with four different images
         if (slimeCounter == 0) {
             slimeCounter++;
             return slime1;
@@ -58,13 +58,13 @@ public class Slime {
         }
         slimeCounter = 0;
         return slime4;
-    } //this animates the slime with slime1 and 2
+    }   //this animates the slime with four different images
 
-    Rect GetCollisionShape () {
+    Rect GetCollisionShape () { //this is the collision shape for the slime
         return new Rect(x, y, (int) (x + width*.6), (int) (y + height*.75));
     }
 
     Bitmap getDead () {
         return dead;
-    }
+    }   //this is the dead slime image
 }

@@ -4,7 +4,7 @@ import android.graphics.Point;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
-import android.view.MotionEvent;
+
 
 /*
 This is the game activity that runs the game, it switches from the main activity to this activity when the game starts
@@ -13,7 +13,7 @@ public class NewGameActivity extends AppCompatActivity {
     private GameView gameView;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {    //creates the game
         super.onCreate(savedInstanceState);
 
 
@@ -25,13 +25,13 @@ public class NewGameActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onPause() {
+    protected void onPause() {  //pauses the game
         super.onPause();
         gameView.pause();
     }
 
     @Override
-    protected void onResume() {
+    protected void onResume() { //resumes the game
         super.onResume();
         gameView.resume();
     }
