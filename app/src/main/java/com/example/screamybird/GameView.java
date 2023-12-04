@@ -3,8 +3,11 @@ package com.example.screamybird;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+
+import androidx.constraintlayout.widget.ConstraintSet;
 
 public class GameView extends SurfaceView implements Runnable{
     private final Player player;
@@ -23,7 +26,7 @@ public class GameView extends SurfaceView implements Runnable{
         this.screenY = screenY;
 
         //makes it work on every device
-        screenRatioX = 1920f / screenX;
+        screenRatioX = 1080f / screenX;
         screenRatioY = 2220f / screenY;
 
         background1 = new Background(screenX, screenY, getResources());
@@ -92,5 +95,19 @@ public class GameView extends SurfaceView implements Runnable{
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                if (event.getX() < screenX / 2) {
+                    player.isGoingUp = true;
+                }
+                break;
+                case MotionEvent.ACTION_UP:
+                    break;
+        }
+        return true;
     }
 }

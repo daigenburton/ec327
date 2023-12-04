@@ -6,6 +6,7 @@ import android.graphics.Rect;
 
 public class Player extends Sprite {
 
+
     public Player(Bitmap image, Context context, Rect hitbox, Rect screen) {
         super(image, context, hitbox, screen);
         this.affectedByGrav = true;

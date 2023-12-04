@@ -8,6 +8,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 public class Slime {
+    boolean isGoingUp = false;
     int x, y, width, height, slimeCounter=2;
     Bitmap slime1, slime2;
 
@@ -18,8 +19,8 @@ public class Slime {
         width = slime1.getWidth();
         height = slime1.getHeight();
 
-        width /= 17;
-        height /= 17;
+        width /= 15;
+        height /= 15;
 
         width *= (int) (width * screenRatioX);
         height *= (int) (height * screenRatioY);
@@ -27,7 +28,7 @@ public class Slime {
         slime1 = Bitmap.createScaledBitmap(slime1, width, height, false);
         slime2 = Bitmap.createScaledBitmap(slime2, width, height, false);
 
-        y = screenY/2;; // Move to the bottom with a small margin
+        y =  screenY/2;
         x = (int) (64 * screenRatioX);
     }
 
