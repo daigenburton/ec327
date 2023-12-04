@@ -10,7 +10,6 @@ import android.view.MotionEvent;
 public class NewGameActivity extends AppCompatActivity {
     private GameView gameView;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

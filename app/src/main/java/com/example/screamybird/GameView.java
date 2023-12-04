@@ -1,5 +1,6 @@
 package com.example.screamybird;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,6 +18,7 @@ import android.media.SoundPool;
 import android.os.Build;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
+
 import androidx.core.app.ActivityCompat;
 
 import java.util.Random;
@@ -36,6 +38,18 @@ public class GameView extends SurfaceView implements Runnable {
     public Slime slime;
     private NewGameActivity activity;
     private Background background1, background2;
+    private Context context;
+
+    //For audio input
+    private static final int SAMPLE_RATE = 44100;
+    private static final int CHANNEL_CONFIG = AudioFormat.CHANNEL_IN_MONO;
+    private static final int AUDIO_FORMAT = AudioFormat.ENCODING_PCM_16BIT;
+    private static final long MOVE_UP_COOLDOWN = 1000;
+    private boolean canMoveUp = true;
+    private long lastMoveUpTime = 0;
+
+    private AudioRecord audioRecord;
+    private short[] audioBuffer;
 
     public GameView(NewGameActivity activity, int screenX, int screenY) {
         super(activity);
@@ -84,6 +98,57 @@ public class GameView extends SurfaceView implements Runnable {
             snakes[i] = snake;
         }
         random = new Random();
+    }
+
+
+    @SuppressLint("MissingPermission") // Permission is checked in MainActivity
+    private void initAudioRecorder() {
+        int bufferSize = AudioRecord.getMinBufferSize(SAMPLE_RATE, CHANNEL_CONFIG, AUDIO_FORMAT);
+        audioBuffer = new short[bufferSize];
+
+
+        audioRecord = new AudioRecord(
+                MediaRecorder.AudioSource.MIC,
+                SAMPLE_RATE,
+                CHANNEL_CONFIG,
+                AUDIO_FORMAT,
+                bufferSize
+        );
+    }
+
+    private void startRecording() {
+        audioRecord.startRecording();
+
+        // Start a separate thread for processing the audio data
+        new Thread(this::processAudio).start();
+    }
+
+    private void stopRecording() {
+        if (audioRecord.getRecordingState() == AudioRecord.RECORDSTATE_RECORDING) {
+            audioRecord.stop();
+        }
+    }
+
+    private void processAudio() {
+        while (audioRecord.getRecordingState() == AudioRecord.RECORDSTATE_RECORDING) {
+            int bytesRead = audioRecord.read(audioBuffer, 0, audioBuffer.length);
+            if (bytesRead > 0) {
+                int sum = 0;
+                for (int i = 0; i < bytesRead; i++) {
+                    sum += audioBuffer[i] * audioBuffer[i];
+                }
+                double amplitude = sum / (double) bytesRead;
+                if (amplitude > 50000 && canMoveUp) {
+                    slime.isGoingUp = true;
+                    canMoveUp = false;
+                    lastMoveUpTime = System.currentTimeMillis();
+                }
+                if (!canMoveUp && System.currentTimeMillis() - lastMoveUpTime > MOVE_UP_COOLDOWN) {
+                    slime.isGoingUp = false;
+                    canMoveUp = true;
+                }
+            }
+        }
     }
 
     @Override
@@ -206,6 +271,8 @@ public class GameView extends SurfaceView implements Runnable {
         isPlaying = true;
         thread = new Thread(this);
         thread.start();
+        initAudioRecorder();
+        startRecording();
     }
 
     public void pause() {
@@ -215,6 +282,8 @@ public class GameView extends SurfaceView implements Runnable {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+        stopRecording();
+        audioRecord.release();
     }
 
     @Override
@@ -231,71 +300,8 @@ public class GameView extends SurfaceView implements Runnable {
         }
         return true;
     }
-
-    //EVERYTHING BELOW HERE IS NEW SO REMOVE IF IT BREAKS GAME
-    private class AudioRecorder {
-
-        private static final String TAG = "AudioRecord";
-        int SAMPLE_RATE_IN_HZ = 8000;
-        int BUFFER_SIZE = AudioRecord.getMinBufferSize(SAMPLE_RATE_IN_HZ, AudioFormat.CHANNEL_IN_DEFAULT, AudioFormat.ENCODING_PCM_16BIT);
-        AudioRecord mAudioRecord;
-        boolean isGetVoiceRun;
-        final Object mLock;
-        private final int volumeThreshold = 0;
-        private Context context;
-
-
-        public AudioRecorder() {
-            mLock = new Object();
-        }
-
-        public void getNoiseLevel() {
-            if (isGetVoiceRun) {
-                return;
-            }
-            if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
-                return;
-            } //Already checked for permissions, function returns
-            mAudioRecord = new AudioRecord(MediaRecorder.AudioSource.MIC, SAMPLE_RATE_IN_HZ, AudioFormat.CHANNEL_IN_DEFAULT,
-                    AudioFormat.ENCODING_PCM_16BIT, BUFFER_SIZE);
-            new Thread(new Runnable() {
-
-                @Override
-                public void run() {
-                    mAudioRecord.startRecording();
-                    short[] buffer = new short[BUFFER_SIZE];
-                    while (isPlaying) { //Volume processing
-                        int r = mAudioRecord.read(buffer, 0, BUFFER_SIZE);
-                        long v = 0;
-                        for (int i = 0; i < buffer.length; i++) {
-                            v += buffer[i] * buffer[i];
-                        }
-                        double mean = v / (double) r;
-                        double volume = 10 * Math.log10(mean);
-
-                        while (volume > volumeThreshold) {
-                            slime.isGoingUp = true;
-                        }
-
-                        synchronized (mLock) {
-                            try {
-                                mLock.wait(17);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                        update();
-                        draw();
-                        sleep();
-                    }
-                    mAudioRecord.stop();
-                    mAudioRecord.release();
-                    mAudioRecord = null;
-                }
-            }).start();
-        }
-    }
 }
+
 
 
 
