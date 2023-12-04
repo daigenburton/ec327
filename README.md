@@ -1,5 +1,4 @@
-# Screamy Slime 
-# By DTTK
+# Screamy Slime - Created By DTTK
 # 2D Endless Platformer  
 # EC327: Introduction to Software Engineering 
 
