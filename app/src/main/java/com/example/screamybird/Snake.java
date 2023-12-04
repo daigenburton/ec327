@@ -1,5 +1,5 @@
 package com.example.screamybird;
-//this is the snake class that creates the snake and animates it
+
 import static com.example.screamybird.GameView.screenRatioX;
 import static com.example.screamybird.GameView.screenRatioY;
 
@@ -8,6 +8,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Rect;
 
+/*
+This is the snake class that creates the snake and animates it
+ */
 public class Snake {
     public int speed = 20;
     int x,y, width, height, snakeCounter=1;
