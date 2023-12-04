@@ -8,7 +8,6 @@ import android.view.MotionEvent;
 
 public class NewGameActivity extends AppCompatActivity {
     private GameView gameView;
-    private Game game;
 
 
     @Override
@@ -34,5 +33,6 @@ public class NewGameActivity extends AppCompatActivity {
         super.onResume();
         gameView.resume();
     }
+
 }
 

@@ -7,11 +7,13 @@ import static com.example.screamybird.GameView.screenRatioY;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Rect;
+
 public class Slime {
 
     boolean isGoingUp = false;
-    int x, y, width, height, slimeCounter=2;
-    Bitmap slime1, slime2;
+    int x, y, width, height, slimeCounter=0;
+    Bitmap slime1, slime2, dead;
 
     Slime (int screenY, Resources res) {
         slime1 = BitmapFactory.decodeResource(res, R.drawable.slime1);
@@ -29,6 +31,9 @@ public class Slime {
         slime1 = Bitmap.createScaledBitmap(slime1, width, height, false);
         slime2 = Bitmap.createScaledBitmap(slime2, width, height, false);
 
+        dead = BitmapFactory.decodeResource(res, R.drawable.dead);
+        dead = Bitmap.createScaledBitmap(dead, width, height, false);
+
         y =  screenY/2;
         x = (int) (64 * screenRatioX);
     }
@@ -41,4 +46,12 @@ public class Slime {
         slimeCounter--;
         return slime2;
     } //this animates the slime with slime1 and 2
+
+    Rect GetCollisionShape () {
+        return new Rect(x, y, (int) (x + width*.6), (int) (y + height*.75));
+    }
+
+    Bitmap getDead () {
+        return dead;
+    }
 }
