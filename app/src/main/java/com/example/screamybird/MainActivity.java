@@ -22,6 +22,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import android.os.Build;
 import android.view.WindowInsets;
+import android.widget.TextView;
 
 import java.io.IOException;
 
@@ -84,6 +85,10 @@ public class MainActivity extends NewGameActivity {
                 goToVoiceActivity();
             }
         });
+
+        //TextView highscoreTxt = findViewById(R.id.highscoreTxt);
+        //final SharedPreferences prefs = getSharedPreferences("game", MODE_PRIVATE);
+        //highscoreTxt.setText("Highscore: " + prefs.getInt("highscore", 0));
     }
 
 
