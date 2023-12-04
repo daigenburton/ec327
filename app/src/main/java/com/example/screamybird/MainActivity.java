@@ -38,8 +38,6 @@ public class MainActivity extends NewGameActivity {
         setContentView(R.layout.main);
         this.setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
-
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             // For API level 30 and above
             View decorView = getWindow().getDecorView();
@@ -103,21 +101,15 @@ public class MainActivity extends NewGameActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
             case RECORD_AUDIO_PERMISSION_REQUEST_CODE: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                    // Permission was granted
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Intent intent = new Intent(this, NewGameActivity.class);
                     intent.putExtra("Mode", "Voice");
                     startActivity(intent);
                 } else {
-                    // Permission denied
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
                     alertDialog.setTitle("Permission Denied...");
                     alertDialog.setMessage("Without record audio permission granted, " +
