@@ -1,26 +1,30 @@
 package com.example.screamybird;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.media.AudioAttributes;
+import android.media.AudioFormat;
 import android.media.AudioManager;
+import android.media.AudioRecord;
+import android.media.MediaRecorder;
 import android.media.SoundPool;
 import android.os.Build;
 import android.view.MotionEvent;
-import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import androidx.constraintlayout.widget.ConstraintSet;
+import androidx.core.app.ActivityCompat;
 
 import java.util.Random;
 
 //this class is the game view and it is where the game is drawn and updated
-public class GameView extends SurfaceView implements Runnable{
+public class GameView extends SurfaceView implements Runnable {
     private Thread thread;
     private boolean isPlaying, isGameOver = false;
     private int screenX, screenY, score = 0;
@@ -31,16 +35,29 @@ public class GameView extends SurfaceView implements Runnable{
     private Random random;
     private SoundPool soundPool;
     private int sound;
-    private Slime slime;
+    public Slime slime;
     private NewGameActivity activity;
     private Background background1, background2;
+    private Context context;
+
+    //For audio input
+    private static final int SAMPLE_RATE = 44100;
+    private static final int CHANNEL_CONFIG = AudioFormat.CHANNEL_IN_MONO;
+    private static final int AUDIO_FORMAT = AudioFormat.ENCODING_PCM_16BIT;
+    private static final long MOVE_UP_COOLDOWN = 1000;
+    private boolean canMoveUp = true;
+    private long lastMoveUpTime = 0;
+
+    private AudioRecord audioRecord;
+    private short[] audioBuffer;
+
     public GameView(NewGameActivity activity, int screenX, int screenY) {
         super(activity);
 
         this.activity = activity;
 
 
-    preferences = activity.getSharedPreferences("game", Context.MODE_PRIVATE);
+        preferences = activity.getSharedPreferences("game", Context.MODE_PRIVATE);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             AudioAttributes audioAttributes = new AudioAttributes.Builder()
@@ -76,25 +93,80 @@ public class GameView extends SurfaceView implements Runnable{
 
         snakes = new Snake[4];
 
-        for (int i =0; i < 4; i++) {
+        for (int i = 0; i < 4; i++) {
             Snake snake = new Snake(getResources());
             snakes[i] = snake;
         }
         random = new Random();
     }
-    @Override
-    public void run() {
-        while (isPlaying) {
-            update ();
-            draw ();
-            sleep ();
+
+
+    @SuppressLint("MissingPermission") // Permission is checked in MainActivity
+    private void initAudioRecorder() {
+        int bufferSize = AudioRecord.getMinBufferSize(SAMPLE_RATE, CHANNEL_CONFIG, AUDIO_FORMAT);
+        audioBuffer = new short[bufferSize];
+
+
+        audioRecord = new AudioRecord(
+                MediaRecorder.AudioSource.MIC,
+                SAMPLE_RATE,
+                CHANNEL_CONFIG,
+                AUDIO_FORMAT,
+                bufferSize
+        );
+    }
+
+    private void startRecording() {
+        audioRecord.startRecording();
+
+        // Start a separate thread for processing the audio data
+        new Thread(this::processAudio).start();
+    }
+
+    private void stopRecording() {
+        if (audioRecord.getRecordingState() == AudioRecord.RECORDSTATE_RECORDING) {
+            audioRecord.stop();
         }
     }
 
-    private void update () {
+    private void processAudio() {
+        while (audioRecord.getRecordingState() == AudioRecord.RECORDSTATE_RECORDING) {
+            int bytesRead = audioRecord.read(audioBuffer, 0, audioBuffer.length);
+            if (bytesRead > 0) {
+                int sum = 0;
+                for (int i = 0; i < bytesRead; i++) {
+                    sum += audioBuffer[i] * audioBuffer[i];
+                }
+                double amplitude = sum / (double) bytesRead;
+                if (amplitude > 50000 && canMoveUp) {
+                    slime.isGoingUp = true;
+                    canMoveUp = false;
+                    lastMoveUpTime = System.currentTimeMillis();
+                }
+                if (!canMoveUp && System.currentTimeMillis() - lastMoveUpTime > MOVE_UP_COOLDOWN) {
+                    slime.isGoingUp = false;
+                    canMoveUp = true;
+                }
+            }
+        }
+    }
+
+    @Override
+    public void run() {
+        while (isPlaying) {
+            update();
+            draw();
+            sleep();
+        }
+    }
+
+    private void update() {
+        if (!preferences.getBoolean("isMute", false)) {
+            soundPool.play(sound, 1, 1, 0, -1, 1);
+        }
 
         background1.x -= 10 * screenRatioX;
-        background2.x -= 10 *screenRatioX;
+        background2.x -= 10 * screenRatioX;
 
         if (background1.x + background1.background.getWidth() < 0) {
             background1.x = screenX;
@@ -102,7 +174,6 @@ public class GameView extends SurfaceView implements Runnable{
         if (background2.x + background2.background.getWidth() < 0) {
             background2.x = screenX;
         }
-
         if (slime.isGoingUp) {
             slime.y -= 30 * screenRatioY;
         } else {
@@ -111,8 +182,8 @@ public class GameView extends SurfaceView implements Runnable{
         if (slime.y < 0) {
             slime.y = 0;
         }
-        if (slime.y > screenY - (slime.height+300)) {
-            slime.y = screenY - (slime.height+300);
+        if (slime.y > screenY - (slime.height + 300)) {
+            slime.y = screenY - (slime.height + 300);
         }
 
         for (Snake snake : snakes) {
@@ -127,13 +198,9 @@ public class GameView extends SurfaceView implements Runnable{
                     snake.speed = (int) (10 * screenRatioX);
                     score++;
                     snake.x = screenX;
-                    snake.y = random.nextInt(screenY - snake.height+300);
+                    snake.y = random.nextInt(screenY - snake.height + 300);
                 }
 
-
-            }
-            if (!preferences.getBoolean("isMute", false)) {
-                soundPool.play(sound, 1, 1, 0, 999, 1);
             }
 
             if (Rect.intersects(snake.GetCollisionShape(), slime.GetCollisionShape())) {
@@ -143,12 +210,13 @@ public class GameView extends SurfaceView implements Runnable{
             }
         }
     }
-    private void draw () {
+
+    private void draw() {
 
         if (getHolder().getSurface().isValid()) {
             Canvas canvas = getHolder().lockCanvas();
             canvas.drawBitmap(background1.background, background1.x, background1.y, paint);
-            canvas.drawBitmap(background2.background, background2.x, background2.y, paint );
+            canvas.drawBitmap(background2.background, background2.x, background2.y, paint);
 
             for (Snake snake : snakes) {
                 canvas.drawBitmap(snake.getSnake(), snake.x, snake.y, paint);
@@ -157,10 +225,9 @@ public class GameView extends SurfaceView implements Runnable{
             canvas.drawText(score + "", screenX / 2f, 150, paint);
             if (isGameOver) {
                 isPlaying = false;
-
-                canvas.drawBitmap(slime.getDead(), slime.x, slime.y, paint);
                 getHolder().unlockCanvasAndPost(canvas);
 
+                canvas.drawBitmap(slime.getDead(), slime.x, slime.y, paint);
                 saveIfHighScore();
                 waitBeforeExiting();
                 return;
@@ -172,7 +239,6 @@ public class GameView extends SurfaceView implements Runnable{
         }
 
 
-
     }
 
     private void waitBeforeExiting() {
@@ -181,7 +247,7 @@ public class GameView extends SurfaceView implements Runnable{
             activity.startActivity(new Intent(activity, MainActivity.class));
             activity.finish();
         } catch (InterruptedException e) {
-        e.printStackTrace();
+            e.printStackTrace();
         }
     }
 
@@ -200,10 +266,13 @@ public class GameView extends SurfaceView implements Runnable{
             throw new RuntimeException(e);
         }
     }
+
     public void resume() {
         isPlaying = true;
         thread = new Thread(this);
         thread.start();
+        initAudioRecorder();
+        startRecording();
     }
 
     public void pause() {
@@ -213,6 +282,8 @@ public class GameView extends SurfaceView implements Runnable{
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+        stopRecording();
+        audioRecord.release();
     }
 
     @Override
@@ -223,10 +294,15 @@ public class GameView extends SurfaceView implements Runnable{
                     slime.isGoingUp = true;
                 }
                 break;
-                case MotionEvent.ACTION_UP:
-                    slime.isGoingUp = false;
-                    break;
+            case MotionEvent.ACTION_UP:
+                slime.isGoingUp = false;
+                break;
         }
         return true;
     }
 }
+
+
+
+
+
