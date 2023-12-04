@@ -18,6 +18,7 @@ import android.widget.ImageButton;
 import android.widget.NumberPicker;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import android.os.Build;
@@ -25,7 +26,7 @@ import android.view.WindowInsets;
 
 
 
-public class MainActivity extends NewGameActivity {
+public class MainActivity extends AppCompatActivity {
 
     private static final int RECORD_AUDIO_PERMISSION_REQUEST_CODE = 0x00;
 
@@ -107,13 +108,11 @@ public class MainActivity extends NewGameActivity {
             case RECORD_AUDIO_PERMISSION_REQUEST_CODE: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Intent intent = new Intent(this, NewGameActivity.class);
-                    intent.putExtra("Mode", "Voice");
                     startActivity(intent);
                 } else {
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
                     alertDialog.setTitle("Permission Denied...");
-                    alertDialog.setMessage("Without record audio permission granted, " +
-                            "you cannot play with voice control.");
+                    alertDialog.setMessage("Please allow microphone permissions to play the game.");
                     alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int which) {
