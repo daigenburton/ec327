@@ -24,7 +24,7 @@ public class SettingsActivity2 extends AppCompatActivity {
     private Window window;
     private ContentResolver contentResolver;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {    //creates the settings page and sets the volume and brightness
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings2);
         askPermission(this);
@@ -39,17 +39,15 @@ public class SettingsActivity2 extends AppCompatActivity {
         seekBarVolume.setProgress(currentVolume);
         seekBarVolume.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {    //sets the volume
                 audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, progress, 0);
             }
 
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-            }
+            public void onStartTrackingTouch(SeekBar seekBar) {}
 
             @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-            }
+            public void onStopTrackingTouch(SeekBar seekBar) {}
         });
 
 
@@ -73,7 +71,7 @@ public class SettingsActivity2 extends AppCompatActivity {
 
         seekBarBrightness.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {    //sets the brightness
                 currentBrightness = progress;
                 Settings.System.putInt(contentResolver, Settings.System.SCREEN_BRIGHTNESS, currentBrightness);
                 WindowManager.LayoutParams layoutParams = window.getAttributes();
@@ -91,7 +89,7 @@ public class SettingsActivity2 extends AppCompatActivity {
         ImageButton backbutton = findViewById(R.id.backbutton);
         backbutton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v) {   //goes back to the main menu
                 Intent intent = new Intent(SettingsActivity2.this, MainActivity.class);
                 startActivity(intent);
             }
@@ -99,7 +97,7 @@ public class SettingsActivity2 extends AppCompatActivity {
     }
 
     @SuppressLint("ObsoleteSdkInt")
-    public void askPermission(Context context) {
+    public void askPermission(Context context) {    //asks for permission to change brightness
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (Settings.System.canWrite(context)) {
                 //you have permissions

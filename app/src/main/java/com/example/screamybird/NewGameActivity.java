@@ -11,7 +11,7 @@ public class NewGameActivity extends AppCompatActivity {
     private GameView gameView;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {    //creates the game
         super.onCreate(savedInstanceState);
 
 
@@ -23,13 +23,13 @@ public class NewGameActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onPause() {
+    protected void onPause() {  //pauses the game
         super.onPause();
         gameView.pause();
     }
 
     @Override
-    protected void onResume() {
+    protected void onResume() { //resumes the game
         super.onResume();
         gameView.resume();
     }

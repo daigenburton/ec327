@@ -13,7 +13,7 @@ public class Snake {
     int x,y, width, height, snakeCounter=1;
     Bitmap snake1, snake2, snake3;
 
-    Snake(Resources res){
+    Snake(Resources res){   //creates the snake
         snake1 = BitmapFactory.decodeResource(res, R.drawable.snake1);
         snake2 = BitmapFactory.decodeResource(res, R.drawable.snake2);
         snake3 = BitmapFactory.decodeResource(res, R.drawable.snake3);
@@ -34,7 +34,7 @@ public class Snake {
         y =  -height;
     }
 
-    Bitmap getSnake(){
+    Bitmap getSnake(){  //this animates the snake with three different images
         if (snakeCounter == 1) {
             snakeCounter++;
             return snake1;
@@ -51,7 +51,7 @@ public class Snake {
         return snake1;
     }
 
-    Rect GetCollisionShape () {
+    Rect GetCollisionShape () { //this creates the collision shape for the snake
         return new Rect(x, y, (int) (x + width*.6), (int) (y + height*.75));
     }
 }
