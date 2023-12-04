@@ -23,7 +23,10 @@ import androidx.core.app.ActivityCompat;
 
 import java.util.Random;
 
-//this class is the game view and it is where the game is drawn and updated
+/*
+This class is the game view and it is where the game is drawn and updated. It preforms many of the calculations for the game,
+such as hitbox collision and voice input. It also handles the game over screen and the score.
+ */
 public class GameView extends SurfaceView implements Runnable {
     private Thread thread;
     private boolean isPlaying, isGameOver = false;
@@ -51,14 +54,13 @@ public class GameView extends SurfaceView implements Runnable {
     private AudioRecord audioRecord;
     private short[] audioBuffer;
 
+    // Constructor
     public GameView(NewGameActivity activity, int screenX, int screenY) {
         super(activity);
-
         this.activity = activity;
-
-
         preferences = activity.getSharedPreferences("game", Context.MODE_PRIVATE);
 
+        // Make it usable for different build versions
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             AudioAttributes audioAttributes = new AudioAttributes.Builder()
                     .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
@@ -76,7 +78,7 @@ public class GameView extends SurfaceView implements Runnable {
         this.screenX = screenX;
         this.screenY = screenY;
 
-        //makes it work on every device
+        // Makes it work on every device
         screenRatioX = 1080f / screenX;
         screenRatioY = 2220f / screenY;
 
@@ -102,6 +104,7 @@ public class GameView extends SurfaceView implements Runnable {
 
 
     @SuppressLint("MissingPermission") // Permission is checked in MainActivity
+    // Initializes the audio recorder
     private void initAudioRecorder() {
         int bufferSize = AudioRecord.getMinBufferSize(SAMPLE_RATE, CHANNEL_CONFIG, AUDIO_FORMAT);
         audioBuffer = new short[bufferSize];
@@ -116,6 +119,7 @@ public class GameView extends SurfaceView implements Runnable {
         );
     }
 
+    // Starts the audio recorder, and starts a new thread for processing the audio data
     private void startRecording() {
         audioRecord.startRecording();
 
@@ -123,12 +127,14 @@ public class GameView extends SurfaceView implements Runnable {
         new Thread(this::processAudio).start();
     }
 
+    // Stops the audio recorder
     private void stopRecording() {
         if (audioRecord.getRecordingState() == AudioRecord.RECORDSTATE_RECORDING) {
             audioRecord.stop();
         }
     }
 
+    // Processes the audio data and determines if the slime should move up
     private void processAudio() {
         while (audioRecord.getRecordingState() == AudioRecord.RECORDSTATE_RECORDING) {
             int bytesRead = audioRecord.read(audioBuffer, 0, audioBuffer.length);
@@ -151,6 +157,7 @@ public class GameView extends SurfaceView implements Runnable {
         }
     }
 
+    // Runs the game
     @Override
     public void run() {
         while (isPlaying) {
@@ -160,6 +167,7 @@ public class GameView extends SurfaceView implements Runnable {
         }
     }
 
+    // Updates the game, makes sure that snakes continue to move and that the slime moves up and down
     private void update() {
 
         background1.x -= 10 * screenRatioX;
@@ -213,6 +221,7 @@ public class GameView extends SurfaceView implements Runnable {
         }
     }
 
+    // Draws the game, draws the background, snakes, and slime
     private void draw() {
 
         if (getHolder().getSurface().isValid()) {
@@ -244,6 +253,7 @@ public class GameView extends SurfaceView implements Runnable {
 
     }
 
+    // Waits 2 seconds before exiting the game
     private void waitBeforeExiting() {
         try {
             Thread.sleep(2000);
@@ -254,6 +264,7 @@ public class GameView extends SurfaceView implements Runnable {
         }
     }
 
+    // Saves the high score
     private void saveIfHighScore() {
         if (preferences.getInt("highscore", 0) < score) {
             SharedPreferences.Editor editor = preferences.edit();
@@ -262,6 +273,7 @@ public class GameView extends SurfaceView implements Runnable {
         }
     }
 
+    // Makes the game sleep for 17 milliseconds
     private void sleep() {
         try {
             Thread.sleep(17);
@@ -270,6 +282,7 @@ public class GameView extends SurfaceView implements Runnable {
         }
     }
 
+    // Resumes the game, starts the audio recorder
     public void resume() {
         isPlaying = true;
         thread = new Thread(this);
@@ -278,6 +291,7 @@ public class GameView extends SurfaceView implements Runnable {
         startRecording();
     }
 
+    // Pauses the game, stops the audio recorder and clears it so that it can be used again
     public void pause() {
         try {
             isPlaying = false;
@@ -289,6 +303,7 @@ public class GameView extends SurfaceView implements Runnable {
         audioRecord.release();
     }
 
+    // Handles the touch event, makes the slime move up when the left side of the screen is touched
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getAction()) {
