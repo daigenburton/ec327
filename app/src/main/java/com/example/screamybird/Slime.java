@@ -13,11 +13,14 @@ public class Slime {
 
     boolean isGoingUp = false;
     int x, y, width, height, slimeCounter=0;
-    Bitmap slime1, slime2, dead;
+    Bitmap slime1, slime2, slime3, slime4, dead;
 
     Slime (int screenY, Resources res) {
         slime1 = BitmapFactory.decodeResource(res, R.drawable.slime1);
         slime2 = BitmapFactory.decodeResource(res, R.drawable.slime2);
+        slime3 = BitmapFactory.decodeResource(res, R.drawable.slime3);
+        slime4 = BitmapFactory.decodeResource(res, R.drawable.slime4);
+
 
         width = slime1.getWidth();
         height = slime1.getHeight();
@@ -30,8 +33,10 @@ public class Slime {
 
         slime1 = Bitmap.createScaledBitmap(slime1, width, height, false);
         slime2 = Bitmap.createScaledBitmap(slime2, width, height, false);
+        slime3 = Bitmap.createScaledBitmap(slime3, width, height, false);
+        slime4 = Bitmap.createScaledBitmap(slime4, width, height, false);
 
-        dead = BitmapFactory.decodeResource(res, R.drawable.dead);
+        dead = BitmapFactory.decodeResource(res, R.drawable.dead3);
         dead = Bitmap.createScaledBitmap(dead, width, height, false);
 
         y =  screenY/2;
@@ -43,8 +48,16 @@ public class Slime {
             slimeCounter++;
             return slime1;
         }
-        slimeCounter--;
-        return slime2;
+        if (slimeCounter == 1) {
+            slimeCounter++;
+            return slime2;
+        }
+        if (slimeCounter == 2) {
+            slimeCounter++;
+            return slime3;
+        }
+        slimeCounter = 0;
+        return slime4;
     } //this animates the slime with slime1 and 2
 
     Rect GetCollisionShape () {

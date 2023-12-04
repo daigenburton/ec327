@@ -92,9 +92,6 @@ public class GameView extends SurfaceView implements Runnable{
     }
 
     private void update () {
-        if (!preferences.getBoolean("isMute", false)) {
-            soundPool.play(sound, 1, 1, 0, -1, 1);
-        }
 
         background1.x -= 10 * screenRatioX;
         background2.x -= 10 *screenRatioX;
@@ -105,6 +102,7 @@ public class GameView extends SurfaceView implements Runnable{
         if (background2.x + background2.background.getWidth() < 0) {
             background2.x = screenX;
         }
+
         if (slime.isGoingUp) {
             slime.y -= 30 * screenRatioY;
         } else {
@@ -132,6 +130,10 @@ public class GameView extends SurfaceView implements Runnable{
                     snake.y = random.nextInt(screenY - snake.height+300);
                 }
 
+
+            }
+            if (!preferences.getBoolean("isMute", false)) {
+                soundPool.play(sound, 1, 1, 0, 999, 1);
             }
 
             if (Rect.intersects(snake.GetCollisionShape(), slime.GetCollisionShape())) {
@@ -155,9 +157,10 @@ public class GameView extends SurfaceView implements Runnable{
             canvas.drawText(score + "", screenX / 2f, 150, paint);
             if (isGameOver) {
                 isPlaying = false;
-                getHolder().unlockCanvasAndPost(canvas);
 
                 canvas.drawBitmap(slime.getDead(), slime.x, slime.y, paint);
+                getHolder().unlockCanvasAndPost(canvas);
+
                 saveIfHighScore();
                 waitBeforeExiting();
                 return;
