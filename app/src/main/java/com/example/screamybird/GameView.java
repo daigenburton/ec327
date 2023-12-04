@@ -138,7 +138,7 @@ public class GameView extends SurfaceView implements Runnable {
                     sum += audioBuffer[i] * audioBuffer[i];
                 }
                 double amplitude = sum / (double) bytesRead;
-                if (amplitude > 50000 && canMoveUp) {
+                if (amplitude > 200000 && canMoveUp) {
                     slime.isGoingUp = true;
                     canMoveUp = false;
                     lastMoveUpTime = System.currentTimeMillis();
