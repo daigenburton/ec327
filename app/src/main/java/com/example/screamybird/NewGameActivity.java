@@ -6,7 +6,9 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 
-//this is the game activity that runs the game, it switches from the main activity to this activity when the game starts
+/*
+This is the game activity that runs the game, it switches from the main activity to this activity when the game starts
+ */
 public class NewGameActivity extends AppCompatActivity {
     private GameView gameView;
 
