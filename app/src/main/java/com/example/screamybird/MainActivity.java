@@ -40,6 +40,7 @@ public class MainActivity extends NewGameActivity {
         this.setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
 
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             // For API level 30 and above
             View decorView = getWindow().getDecorView();
@@ -80,17 +81,13 @@ public class MainActivity extends NewGameActivity {
         playbutton.setOnClickListener(new View.OnClickListener() {
             @Override
                 public void onClick(View view) {
-
-                // Switch Activities on click
-
-                Intent intent = new Intent(MainActivity.this, NewGameActivity.class);
-                startActivity(intent);
+                goToVoiceActivity();
             }
         });
     }
 
 
-    public void goToVoiceActivity(View view) {
+    public void goToVoiceActivity() {
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.RECORD_AUDIO)
                 != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,

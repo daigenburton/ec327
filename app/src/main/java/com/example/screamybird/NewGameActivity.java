@@ -34,11 +34,5 @@ public class NewGameActivity extends AppCompatActivity {
         super.onResume();
         gameView.resume();
     }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        game.onTouchEvent(event);
-        return true;
-    }
 }
 
