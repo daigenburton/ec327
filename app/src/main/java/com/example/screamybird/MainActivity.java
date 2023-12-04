@@ -53,11 +53,10 @@ public class MainActivity extends NewGameActivity {
             });
         } else {
             // For API level 29 and below
-            getWindow().setFlags(
-                    WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                    WindowManager.LayoutParams.FLAG_FULLSCREEN
-            );
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
+
 
         // Get the volume threshold
         SharedPreferences settings = getPreferences(0);
@@ -81,7 +80,9 @@ public class MainActivity extends NewGameActivity {
         playbutton.setOnClickListener(new View.OnClickListener() {
             @Override
                 public void onClick(View view) {
+
                 // Switch Activities on click
+
                 Intent intent = new Intent(MainActivity.this, NewGameActivity.class);
                 startActivity(intent);
             }

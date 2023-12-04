@@ -11,6 +11,10 @@ public class Player extends Sprite {
         this.affectedByGrav = true;
     }
 
+    public Player() {
+        super();
+    }
+
     public void update() {
 
         if(this.getHitbox().bottom >= screen.height() - screen.width() / 10) {

@@ -13,10 +13,15 @@ import android.graphics.Rect;
  */
 public class Sprite {
 
+
+    public Sprite() {
+
+    }
+
     public enum SpriteState{
         JUMPING, IDLE;
     }
-    public Bitmap image;
+    public static Bitmap image;
     public Context context;
     private Rect hitbox;
     public Rect screen;
@@ -139,7 +144,7 @@ public class Sprite {
         canvas.drawPath(path, vectorPaint);
     }
 
-    public void draw (Canvas canvas, long elevation) {
+    public void draw(Canvas canvas, long elevation) {
         if(image != null) {
             this.setY(this.getY());
             canvas.drawBitmap(image, null, getHitbox(), null);
@@ -147,5 +152,6 @@ public class Sprite {
             drawHitbox(canvas, Color.MAGENTA);
         }
     }
+
 }
 
