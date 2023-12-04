@@ -4,7 +4,7 @@ import android.graphics.Point;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
-import android.view.MotionEvent;
+
 
 //this is the game activity that runs the game, it switches from the main activity to this activity when the game starts
 public class NewGameActivity extends AppCompatActivity {
